@@ -3,10 +3,10 @@ namespace as3mbus.Selfish.Source
 {
     public class PlayerJump : Jump
     {
-        private void Update()
+        protected void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Space))
-            base.Invoke();
+            if (Input.GetKeyDown(KeyCode.Space))
+                base.Invoke();
         }
 
     }
