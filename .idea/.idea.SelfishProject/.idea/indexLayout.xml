@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelUserStore">
+    <attachedFolders />
+    <explicitIncludes>
+      <Path>Library/PackageCache/com.unity.ads@2.0.8</Path>
+      <Path>Library/PackageCache/com.unity.analytics@3.3.2</Path>
+      <Path>Library/PackageCache/com.unity.burst@0.2.4-preview.45</Path>
+      <Path>Library/PackageCache/com.unity.collab-proxy@1.2.16</Path>
+      <Path>Library/PackageCache/com.unity.collections@0.0.9-preview.12</Path>
+      <Path>Library/PackageCache/com.unity.entities@0.0.12-preview.24</Path>
+      <Path>Library/PackageCache/com.unity.jobs@0.0.7-preview.6</Path>
+      <Path>Library/PackageCache/com.unity.mathematics@0.0.12-preview.20</Path>
+      <Path>Library/PackageCache/com.unity.multiplayer-hlapi@1.0.2</Path>
+      <Path>Library/PackageCache/com.unity.properties@0.4.0-preview</Path>
+      <Path>Library/PackageCache/com.unity.purchasing@2.0.6</Path>
+      <Path>Library/PackageCache/com.unity.test-framework.performance@0.1.50-preview</Path>
+      <Path>Library/PackageCache/com.unity.textmeshpro@2.0.1</Path>
+      <Path>Library/PackageCache/com.unity.xr.legacyinputhelpers@2.0.2</Path>
+      <Path>Library/PackageCache/nuget.mono-cecil@0.1.5-preview</Path>
+      <Path>Packages</Path>
+      <Path>ProjectSettings</Path>
+    </explicitIncludes>
+    <explicitExcludes>
+      <Path>.git</Path>
+      <Path>.idea</Path>
+      <Path>.vscode</Path>
+      <Path>Library</Path>
+      <Path>Logs</Path>
+      <Path>Temp</Path>
+      <Path>obj</Path>
+    </explicitExcludes>
+  </component>
+</project>

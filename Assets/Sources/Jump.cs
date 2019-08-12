@@ -5,7 +5,7 @@ namespace as3mbus.Selfish.Source
     [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
     public abstract class Jump : MonoBehaviour
     {
-        #region  fields
+        #region fields
 
         protected Rigidbody2D _rigidBd;
 
@@ -13,17 +13,18 @@ namespace as3mbus.Selfish.Source
         private short _airJumpCount;
         [SerializeField]
         protected short _airJumpLimit;
-        private bool _canJump
-        { get => (_airJumpCount < _airJumpLimit || OnLand); }
-
         [SerializeField]
         protected float _jumpForce;
-
         [SerializeField]
         private GroundDetectionSystem _groundDetection;
+        
+        #endregion
+
+        #region properties
+        private bool _canJump
+        { get => (_airJumpCount < _airJumpLimit || OnLand); }
         private bool OnLand
         { get => _groundDetection.OnGround; }
-
         #endregion
 
         #region Unity Messages
