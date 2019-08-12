@@ -7,78 +7,47 @@ namespace as3mbus.Selfish.Source
     {
         #region  fields
 
-        protected Collider2D _cld;
         protected Rigidbody2D _rigidBd;
 
-        #region MultiJump
         [SerializeField]
         private short _airJumpCount;
         [SerializeField]
         protected short _airJumpLimit;
         private bool _canJump
-        { get => (_airJumpCount < _airJumpLimit || _onLand); }
-        #endregion
-
-        [SerializeField]
-        private LayerMask groundLayer;
+        { get => (_airJumpCount < _airJumpLimit || OnLand); }
 
         [SerializeField]
         protected float _jumpForce;
-        [SerializeField]
-        protected float _offset;
 
         [SerializeField]
-        private bool _onLand;
+        private GroundDetectionSystem _groundDetection;
         private bool OnLand
-        {
-            get => _onLand;
-            set
-            {
-                if (value == _onLand) return;
-                if (value) _airJumpCount = 0;
-                _onLand = value;
-            }
-        }
-
+        { get => _groundDetection.OnGround; }
 
         #endregion
 
-        private void Awake()
+        #region Unity Messages
+        protected virtual void Awake()
         {
-            _cld = GetComponent<Collider2D>();
+            _groundDetection = GetComponent<GroundDetectionSystem>();
             _rigidBd = GetComponent<Rigidbody2D>();
         }
-        protected virtual void FixedUpdate()
-        { OnLand = GroundCheck(); }
+
+        protected virtual void Start()
+        { _groundDetection._onStateChanges += OnGroundDetectEvent; }
+
+        protected virtual void OnDestroy()
+        { _groundDetection._onStateChanges -= OnGroundDetectEvent; }
+        #endregion
 
         protected void Invoke()
         {
             if (!_canJump) return;
-            if (!_onLand) _airJumpCount++;
+            if (!OnLand) _airJumpCount++;
             _rigidBd.velocity = Vector2.zero;
             _rigidBd.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
         }
-
-        // Velocity Ground Check
-        //// private bool groundCheck()
-        //// {
-        ////     if (_rigidBd.velocity.y != 0) return false;
-        ////     return true;
-        //// }
-        // CircleCast Groun dCheck
-        //// private bool groundCheck2()
-        //// {
-        ////     var phys = Physics2D.CircleCastAll(_cld.bounds.center, _cld.bounds.extents.x, Vector2.down, _offset);
-        ////     if (phys.Length <= 1) return false;
-        ////     return true;
-        //// }
-        protected virtual bool GroundCheck()
-        {
-            return Physics2D.OverlapArea(
-                new Vector2(_cld.bounds.min.x + _offset, _cld.bounds.min.y - 0.1f),
-                new Vector2(_cld.bounds.max.x - _offset, _cld.bounds.min.y - _offset),
-                groundLayer
-            );
-        }
+        private void OnGroundDetectEvent(bool onGround)
+        { if (onGround) _airJumpCount = 0; }
     }
 }

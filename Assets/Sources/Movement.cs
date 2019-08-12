@@ -18,8 +18,6 @@ namespace as3mbus.Selfish.Source
         // Update is called once per frame
         protected virtual void Update()
         {
-            // rigidBd.MovePosition(transform.position + Vector3.right * Time.deltaTime);
-            // rigidBd.velocity += Vector2.right * _movementMultiplier * Time.deltaTime;
             rigidBd.velocity = new Vector2(0, rigidBd.velocity.y);
             rigidBd.position += Vector2.right * _movementValue * _movementMultiplier * Time.deltaTime;
         }
