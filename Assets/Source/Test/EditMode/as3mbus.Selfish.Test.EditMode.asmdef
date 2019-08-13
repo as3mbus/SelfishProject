@@ -1,6 +1,8 @@
 {
-    "name": "Test.EditMode",
-    "references": [],
+    "name": "as3mbus.Selfish.Test.EditMode",
+    "references": [
+        "GUID:7fd6ff5121579c04592f09d431edc0bb"
+    ],
     "optionalUnityReferences": [
         "TestAssemblies"
     ],

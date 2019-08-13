@@ -1,16 +1,15 @@
-﻿using System.Collections;
+using System.Collections;
 using NUnit.Framework;
-using UnityEngine;
 using UnityEngine.TestTools;
-using  NSubstitute;
+using NSubstitute;
 
 namespace as3mbus.Selfish.Source.Test.EditMode
 {
-    public class JumpTest
+    [TestFixture]
+    public class GroundDetectionTest
     {
-        // A Test behaves as an ordinary method
         [Test]
-        public void JumpTestSimplePasses()
+        public void GroundDetectionTestSimplePasses()
         {
             // Use the Assert class to test conditions
             Assert.IsTrue(true);
@@ -19,12 +18,16 @@ namespace as3mbus.Selfish.Source.Test.EditMode
         // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
         // `yield return null;` to skip a frame.
         [UnityTest]
-        public IEnumerator MovementTestWithEnumeratorPasses()
+        public IEnumerator GroundDetectionTestWithEnumeratorPasses()
         {
             // Use the Assert class to test conditions.
             // Use yield to skip a frame.
             yield return null;
         }
 
+        [Test]
+        public void GroundDetection()
+        {
+        }
     }
 }

@@ -21,10 +21,10 @@ namespace as3mbus.Selfish.Source
         #endregion
 
         #region properties
-        private bool _canJump
-        { get => (_airJumpCount < _airJumpLimit || OnLand); }
-        private bool OnLand
-        { get => _groundDetection.OnGround; }
+        private bool CanJump => (_airJumpCount < _airJumpLimit || OnLand);
+
+        private bool OnLand => _groundDetection.OnGround;
+
         #endregion
 
         #region Unity Messages
@@ -35,15 +35,15 @@ namespace as3mbus.Selfish.Source
         }
 
         protected virtual void Start()
-        { _groundDetection._onStateChanges += OnGroundDetectEvent; }
+        { _groundDetection.OnStateChanges += OnGroundDetectEvent; }
 
         protected virtual void OnDestroy()
-        { _groundDetection._onStateChanges -= OnGroundDetectEvent; }
+        { _groundDetection.OnStateChanges -= OnGroundDetectEvent; }
         #endregion
 
         protected void Invoke()
         {
-            if (!_canJump) return;
+            if (!CanJump) return;
             if (!OnLand) _airJumpCount++;
             _rigidBd.velocity = Vector2.zero;
             _rigidBd.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);

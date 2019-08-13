@@ -19,7 +19,7 @@ namespace as3mbus.Selfish.Source
         protected virtual void Update()
         {
             rigidBd.velocity = new Vector2(0, rigidBd.velocity.y);
-            rigidBd.position += Vector2.right * _movementValue * _movementMultiplier * Time.deltaTime;
+            rigidBd.position += _movementValue * _movementMultiplier * Time.deltaTime * Vector2.right;
         }
     }
 }

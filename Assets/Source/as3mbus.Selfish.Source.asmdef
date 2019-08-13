@@ -1,13 +1,9 @@
 {
-    "name": "Test.PlayMode",
+    "name": "as3mbus.Selfish.Source",
     "references": [],
-    "optionalUnityReferences": [
-        "TestAssemblies"
-    ],
+    "optionalUnityReferences": [],
     "includePlatforms": [],
-    "excludePlatforms": [
-        "Editor"
-    ],
+    "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],

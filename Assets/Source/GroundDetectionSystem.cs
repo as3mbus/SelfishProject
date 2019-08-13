@@ -8,15 +8,14 @@ namespace as3mbus.Selfish.Source
         protected abstract bool GroundCheck();
         [SerializeField]
         private bool _onGround;
-        public event Action<bool> _onStateChanges;
+        public event Action<bool> OnStateChanges;
         public bool OnGround
         {
             get => _onGround;
             private set
             {
                 if (value == _onGround) return;
-                if (_onStateChanges != null)
-                    _onStateChanges(value);
+                OnStateChanges?.Invoke(value);
                 _onGround = value;
             }
         }

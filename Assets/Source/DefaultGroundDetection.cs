@@ -6,9 +6,9 @@ namespace as3mbus.Selfish.Source
     {
         private Collider2D _cld;
         [SerializeField]
-        private float _offset;
+        private float _offset = 0;
         [SerializeField]
-        private LayerMask _groundLayer;
+        private LayerMask _groundLayer = ~0;
         private void Awake()
         { _cld = GetComponent<Collider2D>(); }
         protected override bool GroundCheck()

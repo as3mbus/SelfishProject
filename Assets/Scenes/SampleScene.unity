@@ -821,7 +821,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _onGround: 0
   _offset: 0.12
-  groundLayer:
+  _groundLayer:
     serializedVersion: 2
     m_Bits: 567
 --- !u!1 &1755144753
