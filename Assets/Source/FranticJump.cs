@@ -1,5 +1,4 @@
 namespace as3mbus.Selfish.Source
-
 {
     public class FranticJump : Jump
     {
@@ -9,5 +8,4 @@ namespace as3mbus.Selfish.Source
                 base.Invoke();
         }
     }
-
 }
