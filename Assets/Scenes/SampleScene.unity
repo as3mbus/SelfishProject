@@ -469,6 +469,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -484,6 +485,20 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!114 &519420030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c32002fcb0b30fd4f98ebcf99a1814c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movement: {fileID: 1665295947}
+  _jump: {fileID: 1665295948}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -659,9 +674,9 @@ GameObject:
   - component: {fileID: 1665295944}
   - component: {fileID: 1665295943}
   - component: {fileID: 1665295946}
-  - component: {fileID: 1665295947}
-  - component: {fileID: 1665295949}
   - component: {fileID: 1665295950}
+  - component: {fileID: 1665295948}
+  - component: {fileID: 1665295947}
   m_Layer: 8
   m_Name: player
   m_TagString: Untagged
@@ -787,11 +802,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1665295942}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8044617ee49b7646ad87f4281bbbab3, type: 3}
+  m_Script: {fileID: 11500000, guid: 29598cc77de6acd4faf9596e84ef67a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _movementValue: 0
   _movementMultiplier: 2
---- !u!114 &1665295949
+--- !u!114 &1665295948
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -800,13 +816,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1665295942}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a556d1a75f9203408523673b677a46b, type: 3}
+  m_Script: {fileID: 11500000, guid: 1bea0262a7c27914aa4e2c2379e0d36e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _airJumpCount: 0
-  _airJumpLimit: 2
-  _jumpForce: 4
-  _groundDetection: {fileID: 0}
+  AirJumpLimit: 0
+  JumpForce: 0
+  _groundDetection: {fileID: 1665295950}
 --- !u!114 &1665295950
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ namespace as3mbus.Selfish.Source
         protected void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
-                base.Invoke();
+                base.Action();
         }
 
     }

@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using  NSubstitute;
+using NSubstitute;
 
 namespace as3mbus.Selfish.Source.Test.EditMode
 {
@@ -26,5 +26,10 @@ namespace as3mbus.Selfish.Source.Test.EditMode
             yield return null;
         }
 
+        [Test]
+        public void _1_jump()
+        {
+            
+        }
     }
 }

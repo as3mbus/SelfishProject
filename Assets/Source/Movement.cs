@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace as3mbus.Selfish.Source
 {
-    public abstract class Movement : MonoBehaviour
+    public class Movement : MonoBehaviour
     {
-        protected float _movementValue = 0;
+        public float _movementValue = 0;
         private Rigidbody2D rigidBd;
         [SerializeField]
         protected float _movementMultiplier = 2;

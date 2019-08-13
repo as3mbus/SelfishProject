@@ -5,7 +5,7 @@ namespace as3mbus.Selfish.Source
         protected void Update()
         {
             if (_rigidBd.velocity.y < 0)
-                base.Invoke();
+                base.Action();
         }
     }
 }
