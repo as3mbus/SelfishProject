@@ -8,15 +8,16 @@ namespace as3mbus.Selfish.Source
         [SerializeField]
         private float _offset;
         [SerializeField]
-        private LayerMask groundLayer;
+        private LayerMask _groundLayer;
         private void Awake()
         { _cld = GetComponent<Collider2D>(); }
         protected override bool GroundCheck()
         {
+            var bounds = _cld.bounds;
             return Physics2D.OverlapArea(
-                new Vector2(_cld.bounds.min.x + _offset, _cld.bounds.min.y - 0.1f),
-                new Vector2(_cld.bounds.max.x - _offset, _cld.bounds.min.y - _offset),
-                groundLayer
+                new Vector2(bounds.min.x + _offset, bounds.min.y - 0.1f),
+                new Vector2(bounds.max.x - _offset, bounds.min.y - _offset),
+                _groundLayer
             );
         }
     }

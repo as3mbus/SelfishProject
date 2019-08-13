@@ -5,7 +5,7 @@
     <e p="C:\Users\Crew\.Rider2019.1\system\resharper-host\local\Transient\ReSharperHost\v191\SolutionCaches\_SelfishProject.-764489587.00" t="ExcludeRecursive" />
     <e p="D:\Projects\Unity\SelfishProject" t="IncludeRecursive">
       <e p="Assets" t="Include">
-        <e p="Sources" t="Include">
+        <e p="Source" t="Include">
           <e p="DefaultGroundDetection.cs" t="Include" />
           <e p="Demos" t="Include">
             <e p="SerializationDemo" t="Include">
