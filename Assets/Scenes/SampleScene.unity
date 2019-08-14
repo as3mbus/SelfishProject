@@ -819,10 +819,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bea0262a7c27914aa4e2c2379e0d36e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _airJumpCount: 0
-  AirJumpLimit: 0
-  JumpForce: 0
   _groundDetection: {fileID: 1665295950}
+  _control:
+    _model:
+      AirJumpLimit: 0
+      JumpForce: 4
 --- !u!114 &1665295950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -835,7 +836,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22c2a068c120b1f40a87964966151607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onGround: 0
   _offset: 0.12
   _groundLayer:
     serializedVersion: 2

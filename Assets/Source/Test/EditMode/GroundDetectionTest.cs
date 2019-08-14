@@ -28,6 +28,8 @@ namespace as3mbus.Selfish.Source.Test.EditMode
         [Test]
         public void GroundDetection()
         {
+            var test = new GroundDetectionControl();
+            
         }
     }
 }

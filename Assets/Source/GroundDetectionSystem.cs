@@ -5,24 +5,14 @@ namespace as3mbus.Selfish.Source
 {
     public abstract class GroundDetectionSystem : MonoBehaviour
     {
-        protected abstract bool GroundCheck();
         [SerializeField]
-        private bool _onGround;
-        public event Action<bool> OnStateChanges;
-        public bool OnGround
-        {
-            get => _onGround;
-            private set
-            {
-                if (value == _onGround) return;
-                OnStateChanges?.Invoke(value);
-                _onGround = value;
-            }
-        }
+        protected GroundDetectionControl _control;
+        public GroundDetectionControl Control => _control;
+        protected abstract bool GroundCheck();
+
         protected virtual void FixedUpdate()
         {
-            OnGround = GroundCheck();
+            _control.OnGround = GroundCheck();
         }
-
     }
 }

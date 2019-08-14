@@ -10,31 +10,9 @@ namespace as3mbus.Selfish.Source
 
         protected Rigidbody2D _rigidBd;
 
-        [SerializeField] private short _airJumpCount;
-        public short AirJumpLimit;
-        public float JumpForce;
         [SerializeField] private GroundDetectionSystem _groundDetection;
-
-        public GroundDetectionSystem GroundDetection
-        {
-            get => _groundDetection;
-            set
-            {
-                if (_groundDetection)
-                    _groundDetection.OnStateChanges -= OnGroundDetectEvent;
-                if (value)
-                    _groundDetection.OnStateChanges += OnGroundDetectEvent;
-                _groundDetection = value;
-            }
-        }
-
-        #endregion
-
-        #region properties
-
-        private bool CanJump => (_airJumpCount < AirJumpLimit || OnLand);
-
-        private bool OnLand => _groundDetection.OnGround;
+        private GroundDetectionControl GroundDetection => _groundDetection.Control;
+        [SerializeField] private JumpControl _control;
 
         #endregion
 
@@ -42,33 +20,28 @@ namespace as3mbus.Selfish.Source
 
         protected virtual void Awake()
         {
+            _control.GroundDetection = GroundDetection;
             _rigidBd = GetComponent<Rigidbody2D>();
         }
 
         protected virtual void Start()
         {
-            if (_groundDetection)
-                _groundDetection.OnStateChanges += OnGroundDetectEvent;
+            _control.GroundDetection = GroundDetection;
         }
 
         protected virtual void OnDestroy()
         {
-            GroundDetection = null;
+            _control.GroundDetection = null;
         }
 
         #endregion
 
         public void Action()
         {
-            if (!CanJump) return;
-            if (!OnLand) _airJumpCount++;
+            if (!_control.CanJump) return;
+            _control.JumpCall();
             _rigidBd.velocity = Vector2.zero;
-            _rigidBd.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
-        }
-
-        private void OnGroundDetectEvent(bool onGround)
-        {
-            if (onGround) _airJumpCount = 0;
+            _rigidBd.AddForce(Vector2.up * _control.Model.JumpForce, ForceMode2D.Impulse);
         }
     }
 }
