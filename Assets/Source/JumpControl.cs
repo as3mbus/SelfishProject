@@ -6,12 +6,18 @@ namespace as3mbus.Selfish.Source
     [Serializable]
     public class JumpControl
     {
-        [SerializeField] private JumpModel _model;
-        private short _airJumpCount;
+        public JumpControl(JumpModel model)
+        {
+            _model = model;
+        }
 
+        [SerializeField] private JumpModel _model;
         public JumpModel Model => _model;
-        public bool CanJump => (_airJumpCount < _model.AirJumpLimit || OnLand);
-        public bool OnLand => _groundDetection.OnGround;
+
+        public short AirJumpCount { get; private set; } = 0;
+
+        public bool CanJump => (AirJumpCount < _model.AirJumpLimit || OnGround);
+        private bool OnGround => _groundDetection.OnGround;
         private GroundDetectionControl _groundDetection;
 
         public GroundDetectionControl GroundDetection
@@ -29,12 +35,13 @@ namespace as3mbus.Selfish.Source
 
         private void OnGroundDetectEvent(bool onGround)
         {
-            if (onGround) _airJumpCount = 0;
+            if (onGround) AirJumpCount = 0;
         }
 
         public void JumpCall()
         {
-            if (!OnLand) _airJumpCount++;
+            if (!CanJump) return;
+            if (!OnGround) AirJumpCount++;
         }
     }
 }
