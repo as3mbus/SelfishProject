@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2466688573354836106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ec720550cc342238c9baa662a5e22a4, type: 3}
+  m_Name: NodeA
+  m_EditorClassIdentifier: 
+  neighbors:
+  - {fileID: 8503772430297327880}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4dfc1e702144da48596334f5bfc6782, type: 3}
+  m_Name: NewGraph
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: -2466688573354836106}
+  - {fileID: 8503772430297327880}
+--- !u!114 &8503772430297327880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d85f13ec0674c179ef044ce1289b559, type: 3}
+  m_Name: NodeB
+  m_EditorClassIdentifier: 
+  neighbors: []
+  sprite: {fileID: 0}

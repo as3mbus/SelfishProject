@@ -5,12 +5,14 @@ namespace as3mbus.Selfish.Source
     public class DefaultGroundDetection : GroundDetectionSystem
     {
         private Collider2D _cld;
-        [SerializeField]
-        private float _offset = 0;
-        [SerializeField]
-        private LayerMask _groundLayer = ~0;
+        [SerializeField] private float _offset = 0;
+        [SerializeField] private LayerMask _groundLayer = ~0;
+
         private void Awake()
-        { _cld = GetComponent<Collider2D>(); }
+        {
+            _cld = GetComponent<Collider2D>();
+        }
+
         protected override bool GroundCheck()
         {
             var bounds = _cld.bounds;
