@@ -1,0 +1,15 @@
+{
+    "name": "A3.CameraController",
+    "references": [
+        "A3.Utilities.EventSystems"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}
