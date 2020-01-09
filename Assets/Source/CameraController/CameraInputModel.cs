@@ -4,7 +4,7 @@ namespace A3.CameraController
 {
     public struct CameraInputModel
     {
-        public Vector3? Direction;
-        public float? Zoom;
+        public Vector3 MovementDirection;
+        public float ZoomScroll;
     }
 }

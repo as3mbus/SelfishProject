@@ -8,7 +8,7 @@ namespace A3.CameraController
     {
         public CameraInputModel InputValue { get; private set; }
         private Vector3 _lastTouchVal;
-        private Vector3? _lastDeltaTouch;
+        private Vector3 _lastDeltaTouch;
         private float _flickEffectValue = 0;
 
         // TODO : can be separated into another instance
@@ -24,15 +24,15 @@ namespace A3.CameraController
         {
             InputValue = new CameraInputModel()
             {
-                Direction = PcPanInput(),
-                Zoom = AndroidPinchZoomInput() ?? PcMouseScrollZoomInput(),
+                MovementDirection = PcPanInput(),
+                ZoomScroll = AndroidPinchZoomInput() + PcMouseScrollZoomInput(),
             };
         }
 
-        private Vector3? FlickInput()
+        private Vector3 FlickInput()
         {
-            if (_lastDeltaTouch == null) return null;
-            if (_flickEffectValue <= 0) return null;
+            if (_lastDeltaTouch == Vector3.zero) return Vector3.zero;
+            if (_flickEffectValue <= 0) return Vector3.zero;
             _flickEffectValue -= (Time.deltaTime * FLICK_SPEED_MODIFIER);
             _flickEffectValue = Mathf.Max(0, _flickEffectValue);
             _lastDeltaTouch *= _flickEffectValue;
@@ -41,10 +41,10 @@ namespace A3.CameraController
 
         #region Pan Input
 
-        private Vector3? PcPanInput()
+        private Vector3 PcPanInput()
         {
-            if (EventSystem.current != null && EventSystem.current.IsPointerOverUiObject()) return null;
-            if (Input.touchCount > 1) return null;
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverUiObject()) return Vector3.zero;
+            if (Input.touchCount > 1) return Vector3.zero;
 
             if (Input.GetMouseButtonDown(0))
             {
@@ -59,7 +59,7 @@ namespace A3.CameraController
 
             Vector3 touchPos = Input.mousePosition;
 
-            if (Vector3.Distance(_lastTouchVal, touchPos) <= 0) _lastDeltaTouch = null;
+            if (Vector3.Distance(_lastTouchVal, touchPos) <= 0) _lastDeltaTouch = Vector3.zero;
             else _lastDeltaTouch = (_lastTouchVal - touchPos) / Mathf.Min(Screen.width, Screen.height);
 
             _lastTouchVal = touchPos;
@@ -71,17 +71,17 @@ namespace A3.CameraController
 
         #region Zoom Input
 
-        private static float? PcMouseScrollZoomInput()
+        private static float PcMouseScrollZoomInput()
         {
-            float? deltaScroll = Input.GetAxis("Mouse ScrollWheel");
-            return (Mathf.Abs(deltaScroll.Value) > 0) ? -deltaScroll : null;
+            float deltaScroll = Input.GetAxis("Mouse ScrollWheel");
+            return (Mathf.Abs(deltaScroll) > 0) ? -deltaScroll : 0;
         }
 
 
-        private static float? AndroidPinchZoomInput()
+        private static float AndroidPinchZoomInput()
         {
-            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return null;
-            if (Input.touchCount < 2) return null;
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return 0;
+            if (Input.touchCount < 2) return 0;
             // Store both touches.
             Touch touchZero = Input.GetTouch(0);
             Touch touchOne = Input.GetTouch(1);

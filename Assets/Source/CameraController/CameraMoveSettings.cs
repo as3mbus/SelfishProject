@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace A3.CameraController
@@ -11,16 +12,29 @@ namespace A3.CameraController
     // TODO : specify Orthographic / perspective zoom limit one for each
     // - which also mean to specify orthographic / perspective conditions
 
-    [CreateAssetMenu(menuName = "GL-Sim/Camera/MoveSettings", order = 0, fileName = "CameraMoveSetting.asset")]
+    [CreateAssetMenu(menuName = "A3/Camera/MoveSettings", order = 0, fileName = "CameraMoveSetting.asset")]
     public class CameraMoveSettings : ScriptableObject
     {
-        [Header("Pan")]
+        [Header("Direction / Dimension")]
+        [SerializeField]
+        private Axis _xAxis = Axis.X;
+
+        [SerializeField]
+        private Axis _yAxis = Axis.Y;
+
+        [Header("Speed")]
         [SerializeField]
         private float _panSpeed = 1;
 
-        [Header("Zoom")]
         [SerializeField]
         private float _zoomSpeed = 1;
+
+        [SerializeField]
+        private float _cameraSpeed = 1;
+
+        [Header("Zoom Limit")]
+        [SerializeField]
+        private bool _isZoomLimited = false;
 
         [SerializeField]
         private float _minZoom = 1;
@@ -28,9 +42,9 @@ namespace A3.CameraController
         [SerializeField]
         private float _maxZoom = 179;
 
-        [Header("Camera")]
+        [Header("Movement Limit")]
         [SerializeField]
-        private float _cameraSpeed = 1;
+        private bool _isMovementLimited = false;
 
         [SerializeField]
         private Vector2 _lowerLimit = Vector2.zero;
@@ -38,11 +52,6 @@ namespace A3.CameraController
         [SerializeField]
         private Vector2 _upperLimit = Vector2.one;
 
-        [SerializeField]
-        private Axis _xAxis;
-
-        [SerializeField]
-        private Axis _yAxis;
 
         public float PanSpeed => _panSpeed;
         public float ZoomSpeed => _zoomSpeed;
@@ -50,21 +59,48 @@ namespace A3.CameraController
         public float MaxZoom => _maxZoom;
         public float CameraSpeed => _cameraSpeed;
 
-        public Vector3 Clamp(Vector3 vector3)
+        public float PanSpeedZoomModifier(float zoomValue) =>
+            Mathf.Clamp(zoomValue, _minZoom, (_maxZoom / 2f))
+            / (_maxZoom + _minZoom / 2f);
+
+        public float LimitZoom(float zoomValue) =>
+            (_isZoomLimited) ? Mathf.Clamp(zoomValue, _minZoom, _maxZoom) : zoomValue;
+
+        public Vector3 LimitPosition(Vector3 vector3)
         {
-            return new Vector3()
-            {
-                x = (_xAxis != Axis.X && _yAxis != Axis.X) ? vector3.x : Mathf.Clamp(vector3.x, TranslateVector(_lowerLimit).x, TranslateVector(_upperLimit).x),
-                y = (_xAxis != Axis.Y && _yAxis != Axis.Y) ? vector3.y : Mathf.Clamp(vector3.y, TranslateVector(_lowerLimit).y, TranslateVector(_upperLimit).y),
-                z = (_xAxis != Axis.Z && _yAxis != Axis.Z) ? vector3.z : Mathf.Clamp(vector3.z, TranslateVector(_lowerLimit).z, TranslateVector(_upperLimit).z)
-            };
+            if (!_isMovementLimited) return vector3;
+            Vector3 translatedLowerLimit = TranslateVector(_lowerLimit);
+            Vector3 translatedUpperLimit = TranslateVector(_upperLimit);
+            Vector3 clampedVector = ClampVector(vector3, translatedLowerLimit, translatedUpperLimit);
+            if (_xAxis != Axis.X && _yAxis != Axis.X) clampedVector.x = vector3.x;
+            if (_xAxis != Axis.Y && _yAxis != Axis.Y) clampedVector.y = vector3.y;
+            if (_xAxis != Axis.Z && _yAxis != Axis.Z) clampedVector.z = vector3.z;
+            return clampedVector;
         }
 
         public Vector3 TranslateVector(Vector3 vector3)
-            => new Vector3(
-                0 + ((_xAxis == Axis.X) ? vector3.x : 0) + ((_yAxis == Axis.X) ? vector3.y : 0),
-                0 + ((_xAxis == Axis.Y) ? vector3.x : 0) + ((_yAxis == Axis.Y) ? vector3.y : 0),
-                0 + ((_xAxis == Axis.Z) ? vector3.x : 0) + ((_yAxis == Axis.Z) ? vector3.y : 0)
-            );
+        {
+            Vector3 result = Vector3.zero;
+            result[(int) _xAxis] += vector3.x;
+            result[(int) _yAxis] += vector3.y;
+            return result;
+        }
+
+        public List<Axis> LockedAxis()
+        {
+            List<Axis> result = new List<Axis>();
+            if (_xAxis != Axis.X && _yAxis != Axis.X) result.Add(Axis.X);
+            if (_xAxis != Axis.Y && _yAxis != Axis.Y) result.Add(Axis.Y);
+            if (_xAxis != Axis.Z && _yAxis != Axis.Z) result.Add(Axis.Z);
+            return result;
+        }
+
+        public static Vector3 ClampVector(Vector3 vector3, Vector3 lowerVector, Vector3 upperVector)
+        {
+            Vector3 v = new Vector3();
+            for (int i = 0; i < 3; i++)
+                v[i] = Mathf.Clamp(vector3[i], lowerVector[i], upperVector[i]);
+            return v;
+        }
     }
 }
