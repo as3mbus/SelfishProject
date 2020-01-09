@@ -24,8 +24,8 @@ namespace A3.CameraController
         {
             InputValue = new CameraInputModel()
             {
-                Direction = PcPanInput(),
-                Zoom = AndroidPinchZoomInput() ?? PcMouseScrollZoomInput(),
+                MovementDirection = PcPanInput(),
+                ZoomScroll = AndroidPinchZoomInput() ?? PcMouseScrollZoomInput(),
             };
         }
 

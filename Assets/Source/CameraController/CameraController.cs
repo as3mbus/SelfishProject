@@ -2,23 +2,21 @@ using UnityEngine;
 
 namespace A3.CameraController
 {
-    // TODO : different axis handling
     public class CameraController : MonoBehaviour
     {
         #region Fields / Attributes
 
-        private ICameraMove _cameraMove;
+        private ICameraMove<CameraInputModel> _cameraMove;
         private IInput<CameraInputModel> m_Input;
+        private CameraInputModel _inputValue => m_Input.InputValue;
 
         [SerializeField]
         private CameraMoveSettings _moveSettings = null;
 
-        private CameraInputModel _inputValue => m_Input.InputValue;
 
         private bool _isReady = false;
 
         #endregion
-
 
         #region Init Methods
 
@@ -46,13 +44,12 @@ namespace A3.CameraController
         {
             if (!_isReady) return;
             m_Input.ValidateInput();
-            _cameraMove.AddZoom(_inputValue.Zoom);
-            _cameraMove.Pan(_inputValue.Direction);
+            _cameraMove.Navigation(_inputValue);
             _cameraMove.UpdatePos();
         }
 
         #endregion
-        
+
         // set camera pos to position
         public void SetCameraPos(Vector3 pos)
             => _cameraMove.SetPosition(pos);

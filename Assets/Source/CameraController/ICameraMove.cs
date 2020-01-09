@@ -3,12 +3,10 @@ using UnityEngine;
 namespace A3.CameraController
 {
     // TODO : Documentation Comment
-    public interface ICameraMove
+    // Can be abstracted more but still need more reconsideration in order to do so
+    public interface ICameraMove<TInput>
     {
-        void SetZoom(float? value);
-        void AddZoom(float? delta);
-        void Pan(Vector3? newPos);
-        void Navigation(object inputModel);
+        void Navigation(TInput inputModel);
         void UpdatePos();
         void SetPosition(Vector3 position);
     }

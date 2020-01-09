@@ -4,14 +4,13 @@ namespace A3.CameraController
 {
     public enum Axis
     {
-        X,
-        Y,
-        Z
+        X = 0,
+        Y = 1,
+        Z = 2
     }
 
-    public class CameraMove2D : ICameraMove
+    public class CameraMove2D : ICameraMove<CameraInputModel>
     {
-
         public CameraMove2D(Camera cam, Transform transform, CameraMoveSettings settings)
         {
             _camera = cam;
@@ -20,13 +19,11 @@ namespace A3.CameraController
             _settings = settings;
         }
 
-        
-
         #region Fields
 
         private readonly Camera _camera;
         private readonly Transform _transform;
-        private Vector3? _calculatedNewPos;
+        private Vector3 _calculatedNewPos;
         private readonly CameraMoveSettings _settings;
 
         #endregion
@@ -34,16 +31,6 @@ namespace A3.CameraController
         #region Properties
 
         private bool IsOrthographic => _camera.orthographic;
-        private float _minZoom => _settings.MinZoom;
-        private float _maxZoom => _settings.MaxZoom;
-
-        private float PanSpeedZoomModifier =>
-            Mathf.Clamp
-            (
-                ZoomValue,
-                _minZoom,
-                _maxZoom / 2f
-            ) / (_maxZoom + _minZoom / 2f);
 
         private float ZoomValue
         {
@@ -58,65 +45,53 @@ namespace A3.CameraController
 
         #endregion
 
-        public void SetZoom(float? value)
-        {
-            if (value == null) return;
-            float zoom = Mathf.Clamp(value.Value, _minZoom, _maxZoom);
-            ZoomValue = zoom;
-        }
+        #region Zoom
 
-        public void AddZoom(float? delta)
-        {
-            SetZoom(ZoomValue + delta * _settings.ZoomSpeed);
-        }
+        private void SetZoom(float value)
+            => ZoomValue = _settings.LimitZoom(value);
 
-        public void Pan(Vector3? newPos)
+        private void AddZoom(float delta)
+            => SetZoom(ZoomValue + delta * _settings.ZoomSpeed);
+
+        #endregion
+
+        #region Positions
+
+        private void Pan(Vector3 movementDirection)
         {
-            if (newPos == null) return;
-            Vector3 movPos = _settings.TranslateVector(newPos.Value);
-            movPos = _settings.PanSpeed * PanSpeedZoomModifier * movPos;
-            _calculatedNewPos += _transform.rotation * movPos;
-            LimitMovement();
+            Vector3 movPos = _settings.TranslateVector(movementDirection);
+            movPos = _settings.PanSpeed * _settings.PanSpeedZoomModifier(ZoomValue) * movPos;
+            SetPosition(_calculatedNewPos + (_transform.rotation * movPos));
         }
 
         public void SetPosition(Vector3 position)
         {
-            position.y = _transform.position.y;
+            foreach (Axis axis in _settings.LockedAxis())
+                position[(int) axis] = _transform.position[(int) axis];
+//            position.y = _transform.position.y;
             _calculatedNewPos = position;
-            LimitMovement();
+            _calculatedNewPos = _settings.LimitPosition(_calculatedNewPos);
         }
 
-        private void LimitMovement()
-        {
-            if (_calculatedNewPos == null) return;
-            _calculatedNewPos = _settings.Clamp(_calculatedNewPos.Value);
-        }
+        #endregion
 
         public void UpdatePos()
-        {
-            if (_calculatedNewPos == null) return;
-            _transform.position = Vector3.Lerp(_transform.position, _calculatedNewPos.Value,
+            => _transform.position = Vector3.Lerp(_transform.position, _calculatedNewPos,
                 Time.deltaTime * _settings.CameraSpeed);
-        }
+
+
+        #region Navigation
 
         /// <summary>
         /// Combination of Zoom and Pan
         /// </summary>
         /// <param name="inputModel">Input model that represent movement,  and zoom</param>
-
-        #region Navigation
-
-        public void Navigation(object inputModel)
+        public void Navigation(CameraInputModel inputModel)
         {
-            if (inputModel == null) return;
-            if (!(inputModel is CameraInputModel)) return;
-            Navigation((CameraInputModel) inputModel);
-        }
-
-        private void Navigation(CameraInputModel input)
-        {
-            Pan(input.Direction);
-            AddZoom(input.Zoom);
+            if (inputModel.MovementDirection != null)
+                Pan(inputModel.MovementDirection.Value);
+            if (inputModel.ZoomScroll != null)
+                AddZoom(inputModel.ZoomScroll.Value);
         }
 
         #endregion
