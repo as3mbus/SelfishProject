@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5f59cf0cef7465982463b93b613ef2c, type: 3}
   m_Name: CameraMoveSetting
   m_EditorClassIdentifier: 
-  _panSpeed: 12
+  _panSpeed: 300
   _zoomSpeed: 30
   _minZoom: 1
   _maxZoom: 179
   _cameraSpeed: 1
   _lowerLimit: {x: 0, y: 0}
   _upperLimit: {x: 30, y: 30}
+  _xAxis: 1
+  _yAxis: 0
