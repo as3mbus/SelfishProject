@@ -88,10 +88,8 @@ namespace A3.CameraController
         /// <param name="inputModel">Input model that represent movement,  and zoom</param>
         public void Navigation(CameraInputModel inputModel)
         {
-            if (inputModel.MovementDirection != null)
-                Pan(inputModel.MovementDirection.Value);
-            if (inputModel.ZoomScroll != null)
-                AddZoom(inputModel.ZoomScroll.Value);
+            Pan(inputModel.MovementDirection);
+            AddZoom(inputModel.ZoomScroll);
         }
 
         #endregion
