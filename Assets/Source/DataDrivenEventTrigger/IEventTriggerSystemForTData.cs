@@ -1,4 +1,4 @@
-namespace A3.Event
+namespace A3.DataDrivenEventTrigger
 {
     public interface IEventTriggerSystem<TData>
     {

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace A3.Event
+namespace A3.DataDrivenEventTrigger
 {
     public abstract class EventTriggerSystem<TData> : MonoBehaviour, IEventTriggerSystem<TData>
     {
