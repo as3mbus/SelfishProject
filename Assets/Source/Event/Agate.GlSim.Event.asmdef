@@ -1,0 +1,15 @@
+{
+    "name": "Agate.GlSim.Event",
+    "references": [
+        "Agate.GlSim.BSLIntegration",
+        "Agate.GlSim.Progress"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}
