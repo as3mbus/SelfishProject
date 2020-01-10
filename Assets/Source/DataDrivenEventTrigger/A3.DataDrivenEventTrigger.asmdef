@@ -1,0 +1,16 @@
+{
+    "name": "A3.DataDrivenEventTrigger",
+    "references": [
+        "Agate.GlSim.BSLIntegration",
+        "Agate.GlSim.Progress"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}
