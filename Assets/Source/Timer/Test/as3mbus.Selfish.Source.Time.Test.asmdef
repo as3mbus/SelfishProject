@@ -1,7 +1,7 @@
 {
-    "name": "as3mbus.Selfish.Test.EditMode",
+    "name": "as3mbus.Selfish.Source.Time.Test",
     "references": [
-        "GUID:7fd6ff5121579c04592f09d431edc0bb"
+        "GUID:c622eddf0b42c7748a0f5798eb9e0dfc"
     ],
     "optionalUnityReferences": [
         "TestAssemblies"

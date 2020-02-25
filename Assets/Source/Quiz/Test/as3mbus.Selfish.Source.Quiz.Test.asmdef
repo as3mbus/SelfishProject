@@ -1,7 +1,7 @@
 {
-    "name": "as3mbus.Selfish.Test.EditMode",
+    "name": "as3mbus.Selfish.Source.Quiz.Test",
     "references": [
-        "GUID:7fd6ff5121579c04592f09d431edc0bb"
+        "GUID:3d72780e9a8ec7c4382aef2571147eb0"
     ],
     "optionalUnityReferences": [
         "TestAssemblies"
